@@ -1,0 +1,11 @@
+COMPILAR SEM POWERSHELL LOCAL - GITHUB ACTIONS
+
+1. Crie um repositorio PRIVADO vazio no GitHub.
+2. Envie todos os arquivos e pastas deste ZIP para a raiz do repositorio (nao envie o ZIP como unico arquivo).
+3. Abra Actions > Build diagnostic DINPUT DLL > Run workflow.
+4. Aguarde o resultado. Se estiver verde, abra a execucao e baixe o artifact XML2-Diagnostic-DINPUT-x86.
+5. Extraia o ZIP do artifact. O arquivo DINPUT.dll e uma compilacao de DIAGNOSTICO, nao corrige o movimento.
+6. Antes de usar, salve copia da DINPUT.dll original. Use somente com seu jogo e com DebugInput=1 no true-analog.ini.
+7. Abra o jogo e envie o true-analog.log gerado.
+
+IMPORTANTE: se o workflow falhar ao instalar Zig 0.16.0 ou compilar, envie o log da execucao. Nao substitua arquivos do jogo com builds que falharam.

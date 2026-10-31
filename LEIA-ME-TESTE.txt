@@ -1,0 +1,10 @@
+DIAGNOSTICO DE LEITURA V2 - SEM HOOK DE MOVIMENTACAO
+
+1. Faça backup da DLL atual.
+2. Compile este projeto pelo GitHub Actions (workflow build-gcc.yml).
+3. Copie a DLL gerada ao lado de XMen2.exe.
+4. No true-analog.ini, deixe DebugInput=1 e ControllerIndex=0.
+5. Entre no jogo e mova o analogico esquerdo em circulos por 15 segundos, depois em varias intensidades por 15 segundos.
+6. Envie true-analog.log e descreva se o personagem se moveu.
+
+O novo log inclui linhas State com mascara de controles ativos e slot01 a cada segundo, mesmo quando o controle selecionado nao estiver marcado ativo. Nao altera a memoria do jogo nem habilita o hook.
