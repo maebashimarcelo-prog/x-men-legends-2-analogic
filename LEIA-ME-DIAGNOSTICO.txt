@@ -1,0 +1,12 @@
+XML2 DIAGNOSTICO EXPERIMENTAL - APENAS CODIGO-FONTE
+
+Este pacote NAO contem uma DLL compilada.
+Alteracoes:
+- Reconhece somente o SHA-256 especifico como candidato a diagnostico.
+- Mantem XTA_UNKNOWN: o hook de movimentacao NAO sera instalado.
+- Permite amostragem somente leitura quando DebugInput=1.
+- Protege leituras de ponteiros e evita overflow nos deslocamentos.
+- O arquivo original XMen2.exe nao e alterado.
+
+Requer compilacao com a ferramenta apropriada (Zig 0.16.0 conforme projeto).
+Nao substitua sua DLL atual por nenhum arquivo deste pacote.

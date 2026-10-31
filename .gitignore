@@ -1,0 +1,11 @@
+build/
+dist/
+*.log
+*.tmp
+*.exe
+*.dll
+*.zip
+*.pdb
+__pycache__/
+.venv/
+tools/
