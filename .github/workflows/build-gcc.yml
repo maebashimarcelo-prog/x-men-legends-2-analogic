@@ -21,6 +21,24 @@ jobs:
           install: >-
             mingw-w64-i686-gcc
 
+      - name: Extract experimental source
+        shell: pwsh
+        run: |
+          Expand-Archive -LiteralPath "XML2-Diagnostico-Fonte-Experimental.zip" -DestinationPath "extracted" -Force
+          Get-ChildItem -Path "extracted" -Recurse -File | Select-Object -First 15 -ExpandProperty FullName
+          if (Test-Path "extracted/src") {
+            Copy-Item -Path "extracted/*" -Destination "." -Recurse -Force
+          } else {
+            $src = Get-ChildItem -Path "extracted" -Directory -Recurse |
+              Where-Object { $_.Name -eq "src" } |
+              Select-Object -First 1
+            if (-not $src) { throw "Pasta src nao encontrada dentro do ZIP." }
+            Copy-Item -Path (Join-Path $src.Parent.FullName "*") -Destination "." -Recurse -Force
+          }
+          if (-not (Test-Path "src/dinput_proxy.c")) {
+            throw "Arquivo src/dinput_proxy.c nao encontrado apos extracao."
+          }
+
       - name: Compile 32-bit DLL with GCC
         shell: msys2 {0}
         run: |
