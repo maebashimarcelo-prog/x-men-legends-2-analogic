@@ -32,9 +32,17 @@ try {
         (Join-Path $root 'src/analog_gate.S') `
         (Join-Path $root 'src/dinput_proxy.def') -ladvapi32
     if ($LASTEXITCODE -ne 0) { throw 'Zig compilation failed.' }
+
 } finally {
-    [Environment]::SetEnvironmentVariable('ZIG_GLOBAL_CACHE_DIR', $previousCache, 'Process')
+    if (Get-Variable -Name previousCache -ErrorAction SilentlyContinue) {
+        [Environment]::SetEnvironmentVariable(
+            'ZIG_GLOBAL_CACHE_DIR',
+            $previousCache,
+            'Process'
+        )
+    }
 }
+
 & (Join-Path $root 'scripts/Inspect-Proxy.ps1') -Path $output
 if (-not $?) { throw 'PE inspection failed.' }
 $hash = (Get-FileHash -LiteralPath $output -Algorithm SHA256).Hash
