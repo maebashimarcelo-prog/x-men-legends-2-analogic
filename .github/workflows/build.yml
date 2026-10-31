@@ -27,8 +27,12 @@ jobs:
         with:
           version: 0.16.0
 
+      
       - name: Compile and inspect 32-bit DINPUT.dll
         shell: pwsh
+        env:
+          ZIG_GLOBAL_CACHE_DIR: ${{ runner.temp }}/zig-global-cache
+          ZIG_LOCAL_CACHE_DIR: ${{ github.workspace }}/zig-local-cache
         run: ./build.ps1
 
       - name: Upload diagnostic DLL
