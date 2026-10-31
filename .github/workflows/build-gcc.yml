@@ -1,0 +1,49 @@
+name: Build diagnostic DINPUT DLL (GCC x86)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install MSYS2 and 32-bit GCC
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW32
+          update: true
+          install: >-
+            mingw-w64-i686-gcc
+
+      - name: Compile 32-bit DLL with GCC
+        shell: msys2 {0}
+        run: |
+          mkdir -p build
+          gcc -m32 -std=c11 -O2 -Wall -Wextra \
+            -Iinclude -shared -o build/DINPUT.dll \
+            src/dinput_proxy.c \
+            src/compat.c \
+            src/analog_probe.c \
+            src/analog_hook.c \
+            src/analog_gate.S \
+            src/dinput_proxy.def \
+            -ladvapi32 -lm
+
+      - name: Inspect PE32 DLL
+        shell: pwsh
+        run: |
+          ./scripts/Inspect-Proxy.ps1 -Path build/DINPUT.dll
+          Get-FileHash build/DINPUT.dll -Algorithm SHA256
+
+      - name: Upload diagnostic DLL
+        uses: actions/upload-artifact@v4
+        with:
+          name: XML2-Diagnostic-DINPUT-GCC-x86
+          path: build/DINPUT.dll
+          if-no-files-found: error
