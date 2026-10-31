@@ -15,8 +15,13 @@ $ZigPath = (Resolve-Path -LiteralPath $ZigPath).Path
 if ((& $ZigPath version) -ne '0.16.0') { throw 'This release requires Zig 0.16.0.' }
 $output = Join-Path $root 'build/DINPUT.dll'
 New-Item -ItemType Directory -Path (Split-Path $output) -Force | Out-Null
-$previousCache = [Environment]::GetEnvironmentVariable('ZIG_GLOBAL_CACHE_DIR', 'Process')
-$env:ZIG_GLOBAL_CACHE_DIR = Join-Path $root 'build/zig-cache'
+
+if (-not $env:ZIG_GLOBAL_CACHE_DIR) {
+    $env:ZIG_GLOBAL_CACHE_DIR = Join-Path $root 'build/zig-cache'
+}
+New-Item -ItemType Directory -Path $env:ZIG_GLOBAL_CACHE_DIR -Force | Out-Null
+Write-Output "Zig cache: $env:ZIG_GLOBAL_CACHE_DIR"
+
 try {
     & $ZigPath cc -target x86-windows-gnu -std=c11 -O2 -Wall -Wextra -Werror `
         -I (Join-Path $root 'include') -shared -o $output `
