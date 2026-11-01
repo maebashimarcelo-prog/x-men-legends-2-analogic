@@ -12,7 +12,8 @@ static float g_input_deadzone = 0.15f;
 static const float g_full_speed_radius = 0.37f;
 extern void analog_direction_getter(void);
 
-/* Track vertical getter callers; invert only three candidate menu callsites. */
+/* Diagnostic only: record unique vertical-axis getter callers outside movement.
+   No changes to returned values or menu behavior. */
 static uintptr_t g_menu_callers[96];
 static unsigned g_menu_caller_count = 0;
 static void log_vertical_caller(uintptr_t caller) {
@@ -24,7 +25,7 @@ static void log_vertical_caller(uintptr_t caller) {
     if (g_menu_caller_count >= 96) return;
     g_menu_callers[g_menu_caller_count++] = caller;
     snprintf(message, sizeof message,
-             "MenuProbe: vertical getter caller=0x%08X (menu fix candidates)\r\n",
+             "MenuProbe: vertical getter caller=0x%08X (diagnostic only)\r\n",
              (unsigned)caller);
     analog_log_event(message);
 }
@@ -36,13 +37,7 @@ int analog_direction_value(unsigned index, uintptr_t return_address, float *out)
     uint32_t active;
     if (index > 1) return 0;
     if (return_address != 0x0042DC54u && return_address != 0x0042DC62u) {
-        if (index == 1) {
-            log_vertical_caller(return_address);
-            if (return_address == 0x005D4746u ||
-                return_address == 0x0046F7E7u ||
-                return_address == 0x005D46EEu)
-                return 2; /* Original getter, then invert ST(0) in trampoline. */
-        }
+        if (index == 1) log_vertical_caller(return_address);
         return 0;
     }
     if (!g_input_wrapper_cell) return 0;
