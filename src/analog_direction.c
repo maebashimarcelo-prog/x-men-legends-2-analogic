@@ -30,7 +30,25 @@ static void log_vertical_caller(uintptr_t caller) {
     analog_log_event(message);
 }
 
-int analog_direction_value(unsigned index, uintptr_t return_address, float *out) {
+/* Multi-player investigation: capture the game input object (this/ECX) for
+   movement callers. No change to movement values, speed or controller choice. */
+static uintptr_t g_player_contexts[64];
+static unsigned g_player_context_count = 0;
+static void log_player_context(uintptr_t context, uintptr_t caller) {
+    unsigned i;
+    char message[160];
+    if (!context) return;
+    for (i = 0; i < g_player_context_count; ++i)
+        if (g_player_contexts[i] == context) return;
+    if (g_player_context_count >= 64) return;
+    g_player_contexts[g_player_context_count++] = context;
+    snprintf(message, sizeof message,
+             "PlayerProbe: movement context=0x%08X caller=0x%08X\r\n",
+             (unsigned)context, (unsigned)caller);
+    analog_log_event(message);
+}
+
+int analog_direction_value(unsigned index, uintptr_t return_address, float *out, uintptr_t context) {
     uintptr_t wrapper;
     int32_t x, y;
     float fx, fy, radius, output;
@@ -40,6 +58,7 @@ int analog_direction_value(unsigned index, uintptr_t return_address, float *out)
         if (index == 1) log_vertical_caller(return_address);
         return 0;
     }
+    if (index == 0) log_player_context(context, return_address);
     if (!g_input_wrapper_cell) return 0;
     wrapper = *(const uintptr_t *)g_input_wrapper_cell;
     if (!wrapper) return 0;
