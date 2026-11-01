@@ -8,8 +8,8 @@ uintptr_t g_original_direction_getter = 0;
 static uintptr_t g_input_wrapper_cell = 0;
 static unsigned g_input_pad = 0;
 static float g_input_deadzone = 0.15f;
-/* Full movement magnitude at 30% physical stick deflection. */
-static const float g_full_speed_radius = 0.30f;
+/* Full movement magnitude at 34% physical stick deflection. */
+static const float g_full_speed_radius = 0.34f;
 extern void analog_direction_getter(void);
 
 int analog_direction_value(unsigned index, uintptr_t return_address, float *out) {
