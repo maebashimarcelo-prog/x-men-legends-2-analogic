@@ -1,0 +1,293 @@
+{
+  "license": "MIT; original project art",
+  "entries": [
+    {
+      "style": "xbox",
+      "control": 0,
+      "name": "left-left",
+      "source": "xbox/left-left.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 1,
+      "name": "left-right",
+      "source": "xbox/left-right.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 2,
+      "name": "left-up",
+      "source": "xbox/left-up.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 3,
+      "name": "left-down",
+      "source": "xbox/left-down.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 4,
+      "name": "south",
+      "source": "xbox/south.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 5,
+      "name": "east",
+      "source": "xbox/east.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 6,
+      "name": "west",
+      "source": "xbox/west.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 7,
+      "name": "north",
+      "source": "xbox/north.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 8,
+      "name": "left-trigger",
+      "source": "xbox/left-trigger.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 9,
+      "name": "right-trigger",
+      "source": "xbox/right-trigger.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 10,
+      "name": "right-shoulder",
+      "source": "xbox/right-shoulder.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 11,
+      "name": "dpad-up",
+      "source": "xbox/dpad-up.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 12,
+      "name": "dpad-down",
+      "source": "xbox/dpad-down.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 13,
+      "name": "dpad-left",
+      "source": "xbox/dpad-left.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 14,
+      "name": "dpad-right",
+      "source": "xbox/dpad-right.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 15,
+      "name": "right-stick",
+      "source": "xbox/right-stick.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 16,
+      "name": "start",
+      "source": "xbox/start.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 17,
+      "name": "back",
+      "source": "xbox/back.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 18,
+      "name": "right-up",
+      "source": "xbox/right-up.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 19,
+      "name": "right-down",
+      "source": "xbox/right-down.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 20,
+      "name": "right-left",
+      "source": "xbox/right-left.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 21,
+      "name": "right-right",
+      "source": "xbox/right-right.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 22,
+      "name": "left-shoulder",
+      "source": "xbox/left-shoulder.svg"
+    },
+    {
+      "style": "xbox",
+      "control": 23,
+      "name": "left-stick",
+      "source": "xbox/left-stick.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 0,
+      "name": "left-left",
+      "source": "playstation/left-left.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 1,
+      "name": "left-right",
+      "source": "playstation/left-right.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 2,
+      "name": "left-up",
+      "source": "playstation/left-up.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 3,
+      "name": "left-down",
+      "source": "playstation/left-down.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 4,
+      "name": "south",
+      "source": "playstation/south.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 5,
+      "name": "east",
+      "source": "playstation/east.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 6,
+      "name": "west",
+      "source": "playstation/west.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 7,
+      "name": "north",
+      "source": "playstation/north.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 8,
+      "name": "left-trigger",
+      "source": "playstation/left-trigger.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 9,
+      "name": "right-trigger",
+      "source": "playstation/right-trigger.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 10,
+      "name": "right-shoulder",
+      "source": "playstation/right-shoulder.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 11,
+      "name": "dpad-up",
+      "source": "playstation/dpad-up.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 12,
+      "name": "dpad-down",
+      "source": "playstation/dpad-down.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 13,
+      "name": "dpad-left",
+      "source": "playstation/dpad-left.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 14,
+      "name": "dpad-right",
+      "source": "playstation/dpad-right.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 15,
+      "name": "right-stick",
+      "source": "playstation/right-stick.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 16,
+      "name": "start",
+      "source": "playstation/start.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 17,
+      "name": "back",
+      "source": "playstation/back.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 18,
+      "name": "right-up",
+      "source": "playstation/right-up.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 19,
+      "name": "right-down",
+      "source": "playstation/right-down.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 20,
+      "name": "right-left",
+      "source": "playstation/right-left.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 21,
+      "name": "right-right",
+      "source": "playstation/right-right.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 22,
+      "name": "left-shoulder",
+      "source": "playstation/left-shoulder.svg"
+    },
+    {
+      "style": "playstation",
+      "control": 23,
+      "name": "left-stick",
+      "source": "playstation/left-stick.svg"
+    }
+  ]
+}
