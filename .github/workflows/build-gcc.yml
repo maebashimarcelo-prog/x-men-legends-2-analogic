@@ -21,24 +21,6 @@ jobs:
           install: >-
             mingw-w64-i686-gcc
 
-      - name: Extract experimental source
-        shell: pwsh
-        run: |
-          Expand-Archive -LiteralPath "XML2-Diagnostico-Fonte-Experimental.zip" -DestinationPath "extracted" -Force
-          Get-ChildItem -Path "extracted" -Recurse -File | Select-Object -First 15 -ExpandProperty FullName
-          if (Test-Path "extracted/src") {
-            Copy-Item -Path "extracted/*" -Destination "." -Recurse -Force
-          } else {
-            $src = Get-ChildItem -Path "extracted" -Directory -Recurse |
-              Where-Object { $_.Name -eq "src" } |
-              Select-Object -First 1
-            if (-not $src) { throw "Pasta src nao encontrada dentro do ZIP." }
-            Copy-Item -Path (Join-Path $src.Parent.FullName "*") -Destination "." -Recurse -Force
-          }
-          if (-not (Test-Path "src/dinput_proxy.c")) {
-            throw "Arquivo src/dinput_proxy.c nao encontrado apos extracao."
-          }
-
       - name: Compile 32-bit DLL with GCC
         shell: msys2 {0}
         run: |
@@ -49,9 +31,17 @@ jobs:
             src/compat.c \
             src/analog_probe.c \
             src/analog_hook.c \
+            src/analog_direction.c \
+            src/analog_direction.S \
             src/analog_gate.S \
             src/dinput_proxy.def \
             -ladvapi32 -lm
+
+      - name: Verify experimental hook and build marker
+        shell: msys2 {0}
+        run: |
+          strings build/DINPUT.dll | grep -F "XML2-360-V2-20261101"
+          nm build/DINPUT.dll | grep -E "analog_direction_getter|analog_direction_install"
 
       - name: Inspect PE32 DLL
         shell: pwsh
@@ -62,6 +52,6 @@ jobs:
       - name: Upload diagnostic DLL
         uses: actions/upload-artifact@v4
         with:
-          name: XML2-Diagnostic-DINPUT-GCC-x86
+          name: XML2-Analog-360-V2-GCC-x86
           path: build/DINPUT.dll
           if-no-files-found: error
