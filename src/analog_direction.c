@@ -33,7 +33,7 @@ int analog_direction_value(unsigned index, uintptr_t return_address, float *out)
     output = (radius - g_input_deadzone) / (1.0f - g_input_deadzone);
     if (output > 1.0f) output = 1.0f;
     output /= radius;
-    *out = (index == 0 ? fx : fy) * output;
+    *out = (index == 0 ? fx : -fy) * output;
     return 1;
 }
 
