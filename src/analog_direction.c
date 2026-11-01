@@ -53,19 +53,31 @@ int analog_direction_value(unsigned index, uintptr_t return_address, float *out,
     int32_t x, y;
     float fx, fy, radius, output;
     uint32_t active;
+    unsigned selected_pad = g_input_pad;
+    /* Experimental mapping for the observed contiguous player contexts.
+       Contexts 0x79EBFC and 0x79EF8C differ by 0x390 bytes.
+       Never map an unknown context to another player's stick: use the
+       original game getter instead. */
     if (index > 1) return 0;
     if (return_address != 0x0042DC54u && return_address != 0x0042DC62u) {
         if (index == 1) log_vertical_caller(return_address);
         return 0;
     }
     if (index == 0) log_player_context(context, return_address);
+    if (context >= 0x0079EBFCu && context <= 0x0079F6ACu &&
+        ((context - 0x0079EBFCu) % 0x390u) == 0) {
+        selected_pad = g_input_pad + (unsigned)((context - 0x0079EBFCu) / 0x390u);
+        if (selected_pad >= 4) return 0;
+    } else {
+        return 0;
+    }
     if (!g_input_wrapper_cell) return 0;
     wrapper = *(const uintptr_t *)g_input_wrapper_cell;
     if (!wrapper) return 0;
     active = *(const uint32_t *)(wrapper + 0x129CCu);
-    if (!(active & (1u << g_input_pad))) return 0;
-    x = *(const int32_t *)(wrapper + 0x4F0u + g_input_pad * 0x110u);
-    y = *(const int32_t *)(wrapper + 0x4F4u + g_input_pad * 0x110u);
+    if (!(active & (1u << selected_pad))) return 0;
+    x = *(const int32_t *)(wrapper + 0x4F0u + selected_pad * 0x110u);
+    y = *(const int32_t *)(wrapper + 0x4F4u + selected_pad * 0x110u);
     if (x < -1000 || x > 1000 || y < -1000 || y > 1000) return 0;
     fx = (float)x / 1000.0f;
     fy = (float)y / 1000.0f;
@@ -107,7 +119,7 @@ int analog_direction_install(const XtaBuild *build, const XtaConfig *config) {
     if (!VirtualProtect(entry,sizeof(*entry),old_protect,&restored)) {
         analog_log_event("Direction: installed, but page protection restore failed\r\n");
     }
-    snprintf(message,sizeof message,"Direction: EXPERIMENTAL getter active; deadzone=%.3f, pad=%u, target=0x%08X\r\n",
+    snprintf(message,sizeof message,"Direction: MULTIPLAYER TEST mapping base=0x0079EBFC stride=0x390; deadzone=%.3f, first_pad=%u, target=0x%08X\r\n",
              config->deadzone, config->controller_index, (unsigned)target);
     analog_log_event(message);
     return 1;
