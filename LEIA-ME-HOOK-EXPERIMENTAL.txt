@@ -1,0 +1,18 @@
+XML2 HOOK EXPERIMENTAL - TESTE, NAO MOD FINAL
+
+Este pacote permite testar a instalacao do hook apenas para o XMen2.exe
+SHA-256 8AE56DB5E3739E05977991380A6CF14165A4CF4D993D9A968369E332AFD7638C
+O hook so sera instalado se assinatura unica, layout PE, instrucao,
+limite original 0.75 e enderecos de memoria passarem nas verificacoes.
+
+ATENCAO: esta rotina altera apenas o limite de ativacao de movimento.
+Nao implementa ainda movimento livre em 360 graus nem velocidade proporcional.
+Pode causar travamento. Faca backup da DLL anterior e do save.
+Nao use com outras versoes de XMen2.exe.
+
+Substitua o ZIP de fonte no repositorio GitHub pelo conteudo deste ZIP,
+com o nome XML2-Diagnostico-Fonte-Experimental.zip.
+Execute workflow Build diagnostic DINPUT DLL (GCC x86).
+Copie a DLL compilada para o jogo, rode e procure no final de true-analog.log
+por 'EXPERIMENTAL exact-hash gate profile' e 'Hook: Installed'.
+Se houver travamento, restaure imediatamente a DLL anterior.
