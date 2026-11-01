@@ -10,11 +10,12 @@ _analog_direction_getter:
     mov eax, DWORD PTR [esp+8]
     mov edx, DWORD PTR [esp+12]
     lea ecx, [esp]
+    push DWORD PTR [esp+4]
     push ecx
     push eax
     push edx
     call _analog_direction_value
-    add esp, 12
+    add esp, 16
     test eax, eax
     jz .Lfallback
     fld DWORD PTR [esp]
