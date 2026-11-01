@@ -1,0 +1,11 @@
+XML2 Analog 360 Experimental V2
+
+Esta versao identifica a DLL inequivocamente no log e diagnostica por que a validacao do executavel falha.
+
+1. Envie TODO o conteudo deste ZIP extraido para a RAIZ do repositorio GitHub (inclusive .github/workflows).
+2. Execute Actions > Build diagnostic DINPUT DLL (GCC x86).
+3. Baixe o artifact XML2-Analog-360-V2-GCC-x86 e instale a DINPUT.dll apos fazer backup.
+4. No novo true-analog.log, procure XML2-360-V2-20261101 e Direction: EXPERIMENTAL getter active.
+
+Se o marcador nao aparecer, o jogo carregou uma DLL diferente desta compilacao.
+Esta versao nao garante movimento 360 graus; so valida o carregamento e diagnostica a instalacao do hook.
