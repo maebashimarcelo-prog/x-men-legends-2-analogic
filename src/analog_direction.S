@@ -15,8 +15,6 @@ _analog_direction_getter:
     push edx
     call _analog_direction_value
     add esp, 12
-    cmp eax, 2
-    je .Lmenu_invert
     test eax, eax
     jz .Lfallback
     fld DWORD PTR [esp]
@@ -27,13 +25,3 @@ _analog_direction_getter:
     add esp, 4
     pop ecx
     jmp DWORD PTR [_g_original_direction_getter]
-
-/* Call original getter, then invert its x87 floating-point return value.
-   Original thiscall getter consumes its single stack argument (ret 4),
-   so this trampoline returns with plain ret. */
-.Lmenu_invert:
-    add esp, 4
-    pop ecx
-    call DWORD PTR [_g_original_direction_getter]
-    fchs
-    ret
