@@ -12,12 +12,34 @@ static float g_input_deadzone = 0.15f;
 static const float g_full_speed_radius = 0.34f;
 extern void analog_direction_getter(void);
 
+/* Diagnostic only: record unique vertical-axis getter callers outside movement.
+   No changes to returned values or menu behavior. */
+static uintptr_t g_menu_callers[96];
+static unsigned g_menu_caller_count = 0;
+static void log_vertical_caller(uintptr_t caller) {
+    unsigned i;
+    char message[128];
+    if (caller == 0x0042DC54u || caller == 0x0042DC62u) return;
+    for (i = 0; i < g_menu_caller_count; ++i)
+        if (g_menu_callers[i] == caller) return;
+    if (g_menu_caller_count >= 96) return;
+    g_menu_callers[g_menu_caller_count++] = caller;
+    snprintf(message, sizeof message,
+             "MenuProbe: vertical getter caller=0x%08X (diagnostic only)\r\n",
+             (unsigned)caller);
+    analog_log_event(message);
+}
+
 int analog_direction_value(unsigned index, uintptr_t return_address, float *out) {
     uintptr_t wrapper;
     int32_t x, y;
     float fx, fy, radius, output;
     uint32_t active;
-    if (index > 1 || (return_address != 0x0042DC54u && return_address != 0x0042DC62u)) return 0;
+    if (index > 1) return 0;
+    if (return_address != 0x0042DC54u && return_address != 0x0042DC62u) {
+        if (index == 1) log_vertical_caller(return_address);
+        return 0;
+    }
     if (!g_input_wrapper_cell) return 0;
     wrapper = *(const uintptr_t *)g_input_wrapper_cell;
     if (!wrapper) return 0;
