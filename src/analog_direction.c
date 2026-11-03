@@ -9,7 +9,7 @@ static uintptr_t g_input_wrapper_cell = 0;
 static unsigned g_input_pad = 0;
 static float g_input_deadzone = 0.15f;
 /* Full movement magnitude at 37% physical stick deflection. */
-static const float g_full_speed_radius = 0.48f;
+static const float g_full_speed_radius = 0.50f;
 extern void analog_direction_getter(void);
 
 /* Diagnostic only: record unique vertical-axis getter callers outside movement.
